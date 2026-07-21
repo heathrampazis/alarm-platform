@@ -12,9 +12,9 @@ backend:
 frontend:
   name: alarm-frontend
   image:
-    repository: alarm-frontend
+    repository: ghcr.io/heathrampazis/alarm-frontend
     tag: latest
-    pullPolicy: Never
+    pullPolicy: Always
   replicas: 1
   port: 80
   service:
