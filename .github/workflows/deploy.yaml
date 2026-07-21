@@ -1,0 +1,37 @@
+name: Deploy Helm
+
+on:
+  workflow_dispatch:
+    inputs:
+      backendTag:
+        required: false
+        type: string
+
+      frontendTag:
+        required: false
+        type: string
+
+
+jobs:
+
+  deploy:
+
+    runs-on: ubuntu-latest
+
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+
+
+      - name: Deploy
+        run: |
+          helm upgrade alarm ./charts/alarm \
+          -n alarm-system \
+          --set backend.image.tag=${{ inputs.backendTag }} \
+          --set frontend.image.tag=${{ inputs.frontendTag }}
