@@ -1,0 +1,14 @@
+apiVersion: v1
+
+kind: ConfigMap
+
+metadata:
+
+  name: alarm-config
+
+  namespace: {{ .Values.namespace }}
+
+
+data:
+
+  BACKEND_URL: http://alarm-backend-service:8080

@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+
+  name: {{ .Values.frontend.name }}
+
+  namespace: {{ .Values.namespace }}
+
+
+spec:
+
+  replicas: {{ .Values.frontend.replicas }}
+
+
+  selector:
+
+    matchLabels:
+
+      app: {{ .Values.frontend.name }}
+
+
+  template:
+
+    metadata:
+
+      labels:
+
+        app: {{ .Values.frontend.name }}
+
+
+    spec:
+
+      containers:
+
+      - name: frontend
+
+
+        image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
+
+
+        imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
+
+
+        ports:
+
+        - containerPort: {{ .Values.frontend.port }}
+
+
+
+---
+
+apiVersion: v1
+kind: Service
+
+metadata:
+
+  name: alarm-frontend-service
+
+  namespace: {{ .Values.namespace }}
+
+
+spec:
+
+  type: {{ .Values.frontend.service.type }}
+
+
+  selector:
+
+    app: {{ .Values.frontend.name }}
+
+
+  ports:
+
+  - port: 80
+
+    targetPort: {{ .Values.frontend.port }}

@@ -1,0 +1,33 @@
+namespace: alarm-system
+
+
+backend:
+
+  name: alarm-backend
+
+  image:
+    repository: alarm-backend
+    tag: latest
+    pullPolicy: Never
+
+  replicas: 1
+
+  port: 8080
+
+
+
+frontend:
+
+  name: alarm-frontend
+
+  image:
+    repository: alarm-frontend
+    tag: latest
+    pullPolicy: Never
+
+  replicas: 1
+
+  port: 80
+
+  service:
+    type: NodePort

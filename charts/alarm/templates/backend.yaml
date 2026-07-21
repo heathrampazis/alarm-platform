@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: {{ .Values.backend.name }}
+  namespace: {{ .Values.namespace }}
+
+spec:
+
+  replicas: {{ .Values.backend.replicas }}
+
+  selector:
+    matchLabels:
+      app: {{ .Values.backend.name }}
+
+  template:
+
+    metadata:
+      labels:
+        app: {{ .Values.backend.name }}
+
+    spec:
+
+      containers:
+
+      - name: backend
+
+        image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+
+        imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+
+        ports:
+
+        - containerPort: {{ .Values.backend.port }}
+
+
+---
+
+apiVersion: v1
+kind: Service
+
+metadata:
+
+  name: alarm-backend-service
+
+  namespace: {{ .Values.namespace }}
+
+
+spec:
+
+  type: ClusterIP
+
+  selector:
+
+    app: {{ .Values.backend.name }}
+
+  ports:
+
+  - port: {{ .Values.backend.port }}
+
+    targetPort: {{ .Values.backend.port }}
