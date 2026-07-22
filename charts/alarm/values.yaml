@@ -18,7 +18,7 @@ frontend:
   replicas: 1
   port: 80
   service:
-    type: NodePort
+    type: ClusterIP
 
 ingress:
   enabled: true
