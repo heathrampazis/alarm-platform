@@ -14,35 +14,3 @@
     release_namespace: alarm-system
     create_namespace: true
     state: present
-
-
-- name: Wait for backend rollout
-  ansible.builtin.command:
-    cmd: >
-      kubectl rollout status
-      deployment/alarm-backend
-      -n alarm-system
-      --timeout=120s
-  changed_when: false
-
-
-- name: Wait for frontend rollout
-  ansible.builtin.command:
-    cmd: >
-      kubectl rollout status
-      deployment/alarm-frontend
-      -n alarm-system
-      --timeout=120s
-  changed_when: false
-
-
-- name: Show running pods
-  ansible.builtin.command:
-    cmd: kubectl get pods -n alarm-system
-  register: pods
-  changed_when: false
-
-
-- name: Display pods
-  ansible.builtin.debug:
-    var: pods.stdout
