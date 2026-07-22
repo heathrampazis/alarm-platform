@@ -1,37 +1,14 @@
-name: Deploy Helm
-
+name: Deploy
 on:
   workflow_dispatch:
-    inputs:
-      backendTag:
-        required: false
-        type: string
-
-      frontendTag:
-        required: false
-        type: string
-
-
 jobs:
-
   deploy:
-
     runs-on: ubuntu-latest
-
-
     steps:
-
-      - name: Checkout
-        uses: actions/checkout@v4
-
-
-      - name: Install Helm
-        uses: azure/setup-helm@v4
-
-
-      - name: Deploy
-        run: |
-          helm upgrade alarm ./charts/alarm \
-          -n alarm-system \
-          --set backend.image.tag=${{ inputs.backendTag }} \
-          --set frontend.image.tag=${{ inputs.frontendTag }}
+    - uses: actions/checkout@v4
+    - name: Deploy Helm
+      run: |
+        helm upgrade alarm ./charts/alarm \
+        -n alarm-system \
+        --set backend.image.tag=${{ inputs.backend_sha }} \
+        --set frontend.image.tag=${{ inputs.frontend_sha }}
