@@ -1,8 +1,0 @@
----
-- name: Check kubectl
-  ansible.builtin.command: kubectl version --client
-  register: kubectl_version
-  changed_when: false
-
-- debug:
-    var: kubectl_version.stdout

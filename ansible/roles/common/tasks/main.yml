@@ -1,7 +1,0 @@
----
-- name: Display machine information
-  ansible.builtin.debug:
-    msg:
-      - "Operating System: {{ ansible_distribution }}"
-      - "Version: {{ ansible_distribution_version }}"
-      - "Architecture: {{ ansible_architecture }}"
