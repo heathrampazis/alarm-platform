@@ -4,7 +4,7 @@ backend:
   name: alarm-backend
   image:
     repository: ghcr.io/heathrampazis/alarm-backend
-    tag: ""
+    tag: latest
     pullPolicy: Always
   replicas: 1
   port: 8080
@@ -13,9 +13,13 @@ frontend:
   name: alarm-frontend
   image:
     repository: ghcr.io/heathrampazis/alarm-frontend
-    tag: ""
+    tag: latest
     pullPolicy: Always
   replicas: 1
   port: 80
   service:
     type: NodePort
+
+ingress:
+  enabled: true
+  host: localhost

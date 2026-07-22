@@ -1,0 +1,10 @@
+---
+- name: Prepare Alarm Platform
+  hosts: alarm
+  become: false
+
+  roles:
+    - common
+    - docker
+    - kubectl
+    - helm

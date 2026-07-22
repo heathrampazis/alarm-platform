@@ -1,0 +1,8 @@
+---
+- name: Check Helm
+  ansible.builtin.command: helm version
+  register: helm_version
+  changed_when: false
+
+- debug:
+    var: helm_version.stdout

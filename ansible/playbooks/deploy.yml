@@ -1,0 +1,7 @@
+---
+- name: Deploy Alarm Platform
+  hosts: alarm
+  gather_facts: false
+
+  roles:
+    - alarm-deploy
