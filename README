@@ -1,0 +1,5 @@
+1. Enter the Ansible folder
+`cd ansible`
+
+2. Deploy the alarm system with the following Ansible playbook
+`ansible-playbook playbooks/deploy.yml`
