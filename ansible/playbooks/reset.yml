@@ -1,0 +1,37 @@
+---
+- name: Reset and redeploy Alarm Platform
+
+  hosts: localhost
+  connection: local
+
+  tasks:
+
+    - name: Remove Helm release
+      kubernetes.core.helm:
+        name: alarm
+        release_namespace: alarm-system
+        state: absent
+      ignore_errors: true
+
+
+    - name: Delete alarm namespace
+      kubernetes.core.k8s:
+        name: alarm-system
+        api_version: v1
+        kind: Namespace
+        state: absent
+      ignore_errors: true
+
+
+    - name: Wait for namespace deletion
+      pause:
+        seconds: 5
+
+
+    - name: Deploy Alarm Platform with Helm
+      kubernetes.core.helm:
+        name: alarm
+        chart_ref: ../../charts/alarm
+        release_namespace: alarm-system
+        create_namespace: true
+        state: present
